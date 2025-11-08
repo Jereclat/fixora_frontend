@@ -1,26 +1,48 @@
+import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const selectedRole = useLocation();
   const theRole = selectedRole.state?.role;
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("Form submitted:", { ...data, theRole });
-    alert(
-      `✅ Data ready to send:\n${JSON.stringify({ ...data, theRole }, null, 2)}`
-    );
+    const userProfile = {
+      ...data,
+      theRole,
+    };
+
+    try {
+      const response = await axios.post(
+        "https://fixora-backend-0guj.onrender.com/API/register",
+        userProfile
+      );
+
+      alert("You've successfully registered");
+      console.log(response.data);
+
+      reset();
+      navigate("/login");
+    } catch (error) {
+      console.error("Registration error:", error);
+      alert("❌ Registration failed. Please try again.");
+    }
+
+    // localStorage.setItem("fixoraUser", JSON.stringify(userProfile));
   };
 
   return (
-    <section className="w-full min-h-screen flex items-center justify-center bg-white">
+    <section className="w-full min-h-screen flex items-center justify-center py-10 bg-white">
       <div className="w-[90%] max-w-lg mx-auto">
         <h1 className="text-center text-2xl sm:text-3xl font-semibold mb-8">
           {theRole === "client" &&

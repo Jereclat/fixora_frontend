@@ -110,7 +110,7 @@ export const PreRegister = () => {
 
             <p>
               Already have an account{" "}
-              <Link to="/" className="text-[#393ffd] underline">
+              <Link to="/login" className="text-[#393ffd] underline">
                 Log In
               </Link>
             </p>
