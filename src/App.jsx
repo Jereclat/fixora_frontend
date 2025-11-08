@@ -1,11 +1,16 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home/Home";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
 
 const App = () => {
   return (
-    <>
-      <Home />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/ForgotPassword" element={<ForgotPassword />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
