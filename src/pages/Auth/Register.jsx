@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export const Register = () => {
   const selectedRole = useLocation();
-  const theRole = selectedRole.state?.role;
+  const role_type = selectedRole.state?.role;
   const navigate = useNavigate();
 
   const {
@@ -16,40 +16,72 @@ export const Register = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log("Form submitted:", { ...data, theRole });
+    const mappedRole =
+      role_type === "client"
+        ? "user"
+        : role_type === "professional"
+        ? "artisan"
+        : role_type === "company"
+        ? "company"
+        : role_type;
+
     const userProfile = {
-      ...data,
-      theRole,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      password: data.password,
+      password_confirmation: data.password_confirmation,
+      role_type: mappedRole,
+      ...(data.company ? { company: data.company } : {}),
     };
+
+    console.log("Form submitted:", userProfile);
 
     try {
       const response = await axios.post(
-        "https://fixora-backend-0guj.onrender.com/API/register",
-        userProfile
+        "https://backend.northernhavenaxis.com/api/signup",
+        userProfile,
+
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          validateStatus: (status) => status < 500,
+        }
       );
 
-      alert("You've successfully registered");
-      console.log(response.data);
+      // Basically Laravel + Axios has it's own issues hence we have to spell out the response status 
 
-      reset();
-      navigate("/login");
+      if (response.status === 200) {
+        alert("🎉 You've successfully registered!");
+        console.log("Server response:", response.data);
+        reset();
+        navigate("/login");
+        return;
+      }
+
+      if (response.status === 422) {
+        const serverErrors = response.data.errors || {};
+        const message = Object.values(serverErrors).flat().join("/n");
+        alert(message || response.data.message || "Validation Failed");
+        return;
+      }
     } catch (error) {
       console.error("Registration error:", error);
-      alert("❌ Registration failed. Please try again.");
+      alert("❌ Registration failed due to a server or network error.");
     }
-
-    // localStorage.setItem("fixoraUser", JSON.stringify(userProfile));
   };
 
   return (
     <section className="w-full min-h-screen flex items-center justify-center py-10 bg-white">
       <div className="w-[90%] max-w-lg mx-auto">
         <h1 className="text-center text-2xl sm:text-3xl font-semibold mb-8">
-          {theRole === "client" &&
+          {role_type === "client" &&
             "Create an account to find and hire a handyman"}
-          {theRole === "professional" &&
+          {role_type === "professional" &&
             "Create an account to offer your services and get hired"}
-          {theRole === "company" &&
+          {role_type === "company" &&
             "Create an account for your company to manage teams and jobs"}
         </h1>
 
@@ -139,7 +171,7 @@ export const Register = () => {
               <input
                 type="text"
                 placeholder="Registered Company Name"
-                id="companyName"
+                id="company"
                 {...register("companyName", {
                   required: "Company Name is Required",
                 })}
@@ -191,10 +223,20 @@ export const Register = () => {
               Confirm Password
             </label>
             <input
-              id="confirmPassword"
+              id="password_confirmation"
               type="password"
+              placeholder="Confirm Password"
+              {...register("password_confirmation", {
+                required: "Confirm Password is required",
+              })}
               className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#393ffd]"
             />
+
+            {errors.password_confirmation && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.password_confirmation.message}
+              </p>
+            )}
           </div>
 
           <div className="space-y-3 text-sm">

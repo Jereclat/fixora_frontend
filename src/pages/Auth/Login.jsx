@@ -3,6 +3,7 @@ import { Mail, Apple, Chrome, Lock } from "lucide-react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useAuth } from "../../components/Auth/AuthContext";
+import axios from "axios";
 
 export const Login = () => {
   const { login } = useAuth();
@@ -12,28 +13,16 @@ export const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    const fakeUser = { email: data.email, theRole: "client" };
-    const savedUser = JSON.parse(localStorage.getItem("fixoraUser"));
-
-    if (!savedUser) {
-      alert("Nigga get an account");
+  const onSubmit = async (data) => {
+    const success = await login(data);
+    if (success) {
+      navigate("/Dashboard");
     }
 
-    if (
-      savedUser.email === data.email &&
-      savedUser.password === data.password
-    ) {
-      login(savedUser);
-      navigate("/dashboard");
-    } else {
-        alert("Invalid Bitch")
-    }
-
-    reset();
+    console.log("error");
   };
 
   return (
