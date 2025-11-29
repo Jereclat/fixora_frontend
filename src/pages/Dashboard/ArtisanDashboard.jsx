@@ -1,10 +1,10 @@
 import React from 'react'
 
-export const Dashboard = () => {
+export const ArtisanDashboard = () => {
   return (
     <div>
       <button >
-        logout
+        admin
       </button>
     </div>
   )

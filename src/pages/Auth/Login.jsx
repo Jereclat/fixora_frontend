@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Mail, Apple, Chrome, Lock } from "lucide-react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -6,7 +6,7 @@ import { useAuth } from "../../components/Auth/AuthContext";
 import axios from "axios";
 
 export const Login = () => {
-  const { login } = useAuth();
+ const { login, user, isAuthenticated, loading } = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -16,13 +16,20 @@ export const Login = () => {
     reset,
   } = useForm();
 
-  const onSubmit = async (data) => {
-    const success = await login(data);
-    if (success) {
-      navigate("/Dashboard");
+// redirect automatically based on the role type if user is logged already no need for form
+  useEffect(() => {
+  if (!loading && isAuthenticated) {
+    if (user?.role_type === "artisan") {
+      navigate("/artisan/dashboard", { replace: true });
+    } else {
+      navigate("/user/dashboard", { replace: true });
     }
+  }
+}, [isAuthenticated, user, loading, navigate]);
 
-    console.log("error");
+  // making the onsubmit handle just submitting for separation of concerns
+  const onSubmit = async (data) => {
+    await login(data); 
   };
 
   return (

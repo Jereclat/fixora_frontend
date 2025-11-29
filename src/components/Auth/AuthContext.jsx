@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
         const response = await axios.post(
           "https://backend.northernhavenaxis.com/api/refresh",
           {},
-          { withCredentials: true } 
+          { withCredentials: true }
         );
 
         const newAccessToken = response.data.access_token;
@@ -28,7 +28,15 @@ export const AuthProvider = ({ children }) => {
           setUser(userData);
         }
       } catch (error) {
-        console.log("No active session found.");
+        if (error.response) {
+          console.error(
+            "Session check failed:",
+            error.response.status,
+            error.response.data
+          );
+        } else {
+          console.error("Session check failed:", error.message);
+        }
       } finally {
         setLoading(false);
       }
@@ -43,13 +51,15 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.post(
         "https://backend.northernhavenaxis.com/api/login",
         credentials,
-        { headers: { "Content-Type": "application/json" }, withCredentials: true }
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
       );
 
       if (response.status === 200) {
         const userData = response.data.user;
         const token = response.data.access_token;
-
         setUser(userData);
         setAccessToken(token);
         return true;
@@ -71,12 +81,13 @@ export const AuthProvider = ({ children }) => {
   // Logout function
   const logout = async () => {
     try {
-      await api.post("/logout"); 
+      await api.post("/logout");
     } catch (err) {
       console.error("Logout failed:", err);
     } finally {
       setUser(null);
       setAccessToken(null);
+      window.location.href = "/login";
     }
   };
 
