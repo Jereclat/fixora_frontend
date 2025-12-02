@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Mail, Apple, Chrome, Lock } from "lucide-react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -6,6 +6,8 @@ import { useAuth } from "../../components/Auth/AuthContext";
 import axios from "axios";
 
 export const Login = () => {
+  const [loading, setLoading] = useState(false);
+
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -13,13 +15,14 @@ export const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm();
 
   const onSubmit = async (data) => {
+    setLoading(true);
     const success = await login(data);
     if (success) {
       navigate("/Dashboard");
+      setLoading(false);
     }
 
     console.log("error");
@@ -80,9 +83,14 @@ export const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-[#393ffd] text-white py-3 rounded-md font-medium hover:bg-[#393ffd] transition-colors cursor-pointer"
+            disabled={loading}
+            className={`w-full py-3 rounded-md font-medium text-white transition-colors  ${
+              loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-[#393ffd] hover:bg-[#2c33fa]  cursor-pointer"
+            }`}
           >
-            Log In
+            {loading ? "Logging In... " : "Login"}
           </button>
 
           <div className="text-center">
