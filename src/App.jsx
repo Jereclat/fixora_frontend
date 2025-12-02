@@ -17,9 +17,63 @@ import { User } from "./pages/User";
 
 const App = () => {
   return (
-    <>
-      <Home />
-    </>
+    <BrowserRouter>
+      <Routes>
+        {/* PUBLIC ROUTES */}
+        <Route path="/" element={<PreRegister />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+
+        <Route
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          {/* ARTISAN DASHBOARD */}
+          <Route
+            path="artisan/dashboard"
+            element={
+              <RoleRoute allowedRoles={["artisan"]}>
+                <ArtisanDashboard />
+              </RoleRoute>
+            }
+          />
+        </Route>
+        {/* user dashboard not wrapped in a dashboard layout */}
+        <Route
+          path="user/dashboard"
+          element={
+            <ProtectedRoute>
+              <RoleRoute allowedRoles={["user"]}>
+                <UserDashboard />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="user/artisan-profile"
+          element={
+            <ProtectedRoute>
+              <RoleRoute allowedRoles={["user"]}>
+                <ArtisanProfile />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="user/booking-description"
+          element={
+            <ProtectedRoute>
+              <RoleRoute allowedRoles={["user"]}>
+                <BookingDescription />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
