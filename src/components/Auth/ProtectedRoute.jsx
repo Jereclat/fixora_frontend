@@ -5,19 +5,18 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
+import PageLoader from "../loader/PageLoader";
 
 export const ProtectedRoute = ({ children }) => {
   // Implemented the states being isauth and loading
   const { isAuthenticated, loading } = useAuth();
+  return (
+    <>
+      <PageLoader active={loading} />
 
-  // Wait until we know whether the user is authenticated
-  if (loading) {
-    return <div>Loading...</div>; //(test)
-  }
+      {!loading && !isAuthenticated && <Navigate to="/login" replace />}
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-
-  return children;
+      {!loading && isAuthenticated && children}
+    </>
+  );
 };

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const ArtisanCards = () => {
   const artisans = [
@@ -47,6 +48,12 @@ const ArtisanCards = () => {
         "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&h=300&fit=crop",
     },
   ];
+  
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/user/artisan-profile");
+  };
 
   return (
     <div className="py-2 px-4 sm:px-6 lg:px-8">
@@ -104,7 +111,10 @@ const ArtisanCards = () => {
                 </div>
 
                 {/* View Profile Button */}
-                <button className="w-full mt-6 px-4 py-3 bg-[#6d4c41] text-white rounded-xl font-medium text-sm shadow-sm hover:from-amber-600 hover:to-orange-600 hover:shadow-md hover:scale-105 transition-all duration-300 active:scale-95 hover:cursor-pointer">
+                <button
+                  onClick={handleClick}
+                  className="w-full mt-6 px-4 py-3 bg-[#6d4c41] text-white rounded-xl font-medium text-sm shadow-sm hover:from-amber-600 hover:to-orange-600 hover:shadow-md hover:scale-105 transition-all duration-300 active:scale-95 hover:cursor-pointer"
+                >
                   View Profile
                 </button>
               </div>

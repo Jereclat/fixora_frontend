@@ -1,4 +1,12 @@
-export default function UserHero() {
+export default function UserHero({ scrollTargetRef }) {
+  const handleScrollToCards = () => {
+    if (scrollTargetRef.current) {
+      scrollTargetRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
   return (
     <div className="py-10 flex justify-center items-center">
       <div className="w-[1200px] h-[600px] relative rounded-3xl overflow-hidden">
@@ -18,7 +26,10 @@ export default function UserHero() {
           <p className="text-white text-lg md:text-2xl mb-5">
             Connect with skilled artisans and find unique, handcrafted goods.
           </p>
-          <button className="bg-[#6d4c41] text-white text-lg px-6 py-3 rounded-lg font-semibold hover:bg-[#856051] transition-all duration-300 hover:cursor-pointer">
+          <button
+            onClick={handleScrollToCards}
+            className="bg-[#6d4c41] text-white text-lg px-6 py-3 rounded-lg font-semibold hover:bg-[#856051] transition-all duration-300 hover:cursor-pointer"
+          >
             Explore Artisans
           </button>
         </div>

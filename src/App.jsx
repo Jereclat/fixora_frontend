@@ -8,6 +8,8 @@ import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
 import { RoleRoute } from "./components/Auth/RoleRoute";
 import { ArtisanDashboard } from "./pages/Dashboard/ArtisanDashboard";
 import UserDashboard from "./pages/Dashboard/UserDashboard";
+import ArtisanProfile from "./pages/artisanProfile";
+import BookingDescription from "./pages/booking/BookingDescription";
 
 const App = () => {
   return (
@@ -33,6 +35,26 @@ const App = () => {
             <ProtectedRoute>
               <RoleRoute allowedRoles={["user"]}>
                 <UserDashboard />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="user/artisan-profile"
+          element={
+            <ProtectedRoute>
+              <RoleRoute allowedRoles={["user"]}>
+                <ArtisanProfile />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="user/booking-description"
+          element={
+            <ProtectedRoute>
+              <RoleRoute allowedRoles={["user"]}>
+                <BookingDescription />
               </RoleRoute>
             </ProtectedRoute>
           }
