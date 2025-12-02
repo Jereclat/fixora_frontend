@@ -1,9 +1,9 @@
-import { Bookings } from "../components/Layout/Booking";
-import { Carousel } from "../components/Layout/Carousel";
-import { Catalog } from "../components/Layout/Catalog";
-import { CongratsCard } from "../components/Layout/CongratsCard";
-import { OrdersCard } from "../components/Layout/OrdersCard";
-import { SessionsCard } from "../components/Layout/SessionsCard";
+import { Bookings } from "../../components/Layout/Booking"
+import { Carousel } from "../../components/Layout/Carousel"
+import { Catalog } from "../../components/Layout/Catalog";
+import { CongratsCard } from "../../components/Layout/CongratsCard";
+import { OrdersCard } from "../../components/Layout/OrdersCard";
+import { SessionsCard } from "../../components/Layout/SessionsCard";
 
 export const ArtisanDashboard = () => {
   return (

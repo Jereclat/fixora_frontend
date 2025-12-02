@@ -6,7 +6,7 @@ import { useAuth } from "../../components/Auth/AuthContext";
 import axios from "axios";
 
 export const Login = () => {
-  const { login } = useAuth();
+  const { login, isAuthenticated, user, loading, authLoading } = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -15,25 +15,20 @@ export const Login = () => {
     formState: { errors },
   } = useForm();
 
-// redirect automatically based on the role type if user is logged already no need for form
+  // redirect automatically based on the role type if user is logged already no need for form
   useEffect(() => {
-  if (!loading && isAuthenticated) {
-    if (user?.role_type === "artisan") {
-      navigate("/artisan/dashboard", { replace: true });
-    } else {
-      navigate("/user/dashboard", { replace: true });
+    if (!loading && isAuthenticated) {
+      if (user?.role_type === "artisan") {
+        navigate("/artisan/dashboard", { replace: true });
+      } else {
+        navigate("/user/dashboard", { replace: true });
+      }
     }
-  }
-}, [isAuthenticated, user, loading, navigate]);
+  }, [isAuthenticated, user, loading, navigate]);
 
   // making the onsubmit handle just submitting for separation of concerns
   const onSubmit = async (data) => {
-    const success = await login(data);
-    if (success) {
-      navigate("/Dashboard");
-    }
-
-    console.log("error");
+    await login(data);
   };
 
   return (
@@ -91,14 +86,14 @@ export const Login = () => {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={authLoading}
             className={`w-full py-3 rounded-md font-medium text-white transition-colors  ${
-              loading
+              authLoading
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-[#393ffd] hover:bg-[#2c33fa]  cursor-pointer"
             }`}
           >
-            {loading ? "Logging In... " : "Login"}
+            {authLoading ? "Logging In... " : "Login"}
           </button>
 
           <div className="text-center">

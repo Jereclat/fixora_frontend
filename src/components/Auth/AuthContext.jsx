@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import api, { setAccessToken } from "./api/api";
 
@@ -9,31 +8,65 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(false);
 
   // This handles the first loading to which it checks if there is a valid cookie if yes bring a token
   // Else get out.
   useEffect(() => {
-    const storedUser = localStorage.getItem("fixoraUser");
+    const checkSession = async () => {
+      try {
+        const response = await axios.post(
+          "https://backend.northernhavenaxis.com/api/refresh",
+          {},
+          { withCredentials: true }
+        );
 
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
+        const newAccessToken = response.data.access_token;
+        const userData = response.data.user;
 
-    setLoading(false);
+        if (newAccessToken && userData) {
+          setAccessToken(newAccessToken);
+          setUser(userData);
+        }
+      } catch (error) {
+        if (error.response) {
+          console.error(
+            "Session check failed:",
+            error.response.status,
+            error.response.data
+          );
+        } else {
+          console.error("Session check failed:", error.message);
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkSession();
   }, []);
 
-  const login = async (data) => {
+  // Login function
+  const login = async (credentials) => {
     try {
+      setAuthLoading(true);
+
       const response = await axios.post(
         "https://backend.northernhavenaxis.com/api/login",
-        data,
-
+        credentials,
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
-          validateStatus: (status) => status < 500,
         }
       );
+
+      if (response.status === 200) {
+        const userData = response.data.user;
+        const token = response.data.access_token;
+        setUser(userData);
+        setAccessToken(token);
+        return true;
+      }
 
       if (response.status === 422) {
         const serverError = response.data.errors || {};
@@ -45,14 +78,22 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error("Login error:", error);
       return false;
+    } finally {
+      setAuthLoading(false);
     }
   };
 
-  const logout = (userData) => {
-    localStorage.removeItem("fixoraUser");
-    localStorage.removeItem("fixoraToken");
-
-    setUser(null);
+  // Logout function
+  const logout = async () => {
+    try {
+      await api.post("/logout");
+    } catch (err) {
+      console.error("Logout failed:", err);
+    } finally {
+      setUser(null);
+      setAccessToken(null);
+      window.location.href = "/login";
+    }
   };
 
   const isAuthenticated = !!user;
@@ -64,6 +105,7 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         isAuthenticated,
+        authLoading,
         loading,
       }}
     >

@@ -8,13 +8,12 @@ import { Login } from "./pages/Auth/Login";
 import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
 import { DashboardLayout } from "./components/Layout/DashboardLayout";
 
-import{ RoleRoute } from "./components/Auth/RoleRoute";
+import { RoleRoute } from "./components/Auth/RoleRoute";
 import { ArtisanDashboard } from "./pages/Dashboard/ArtisanDashboard";
 import UserDashboard from "./pages/Dashboard/UserDashboard";
 import ArtisanProfile from "./pages/artisanProfile";
 import BookingDescription from "./pages/booking/BookingDescription";
 import { User } from "./pages/User";
-
 
 const App = () => {
   return (
@@ -26,15 +25,23 @@ const App = () => {
         <Route path="/login" element={<Login />} />
 
         <Route
-          path="artisan/dashboard"
           element={
             <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          {/* ARTISAN DASHBOARD */}
+          <Route
+            path="artisan/dashboard"
+            element={
               <RoleRoute allowedRoles={["artisan"]}>
                 <ArtisanDashboard />
               </RoleRoute>
-            </ProtectedRoute>
-          }
-        />
+            }
+          />
+        </Route>
+        {/* user dashboard not wrapped in a dashboard layout */}
         <Route
           path="user/dashboard"
           element={
