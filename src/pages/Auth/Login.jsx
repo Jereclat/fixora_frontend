@@ -6,14 +6,13 @@ import { useAuth } from "../../components/Auth/AuthContext";
 import axios from "axios";
 
 export const Login = () => {
- const { login, user, isAuthenticated, loading } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm();
 
 // redirect automatically based on the role type if user is logged already no need for form
@@ -29,7 +28,12 @@ export const Login = () => {
 
   // making the onsubmit handle just submitting for separation of concerns
   const onSubmit = async (data) => {
-    await login(data); 
+    const success = await login(data);
+    if (success) {
+      navigate("/Dashboard");
+    }
+
+    console.log("error");
   };
 
   return (
@@ -87,9 +91,14 @@ export const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-[#393ffd] text-white py-3 rounded-md font-medium hover:bg-[#393ffd] transition-colors cursor-pointer"
+            disabled={loading}
+            className={`w-full py-3 rounded-md font-medium text-white transition-colors  ${
+              loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-[#393ffd] hover:bg-[#2c33fa]  cursor-pointer"
+            }`}
           >
-            Log In
+            {loading ? "Logging In... " : "Login"}
           </button>
 
           <div className="text-center">

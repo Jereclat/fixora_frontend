@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 import api, { setAccessToken } from "./api/api";
 
@@ -12,58 +13,27 @@ export const AuthProvider = ({ children }) => {
   // This handles the first loading to which it checks if there is a valid cookie if yes bring a token
   // Else get out.
   useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const response = await axios.post(
-          "https://backend.northernhavenaxis.com/api/refresh",
-          {},
-          { withCredentials: true }
-        );
+    const storedUser = localStorage.getItem("fixoraUser");
 
-        const newAccessToken = response.data.access_token;
-        const userData = response.data.user;
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
 
-        if (newAccessToken && userData) {
-          setAccessToken(newAccessToken);
-          setUser(userData);
-        }
-      } catch (error) {
-        if (error.response) {
-          console.error(
-            "Session check failed:",
-            error.response.status,
-            error.response.data
-          );
-        } else {
-          console.error("Session check failed:", error.message);
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkSession();
+    setLoading(false);
   }, []);
 
-  // Login function
-  const login = async (credentials) => {
+  const login = async (data) => {
     try {
       const response = await axios.post(
         "https://backend.northernhavenaxis.com/api/login",
-        credentials,
+        data,
+
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
+          validateStatus: (status) => status < 500,
         }
       );
-
-      if (response.status === 200) {
-        const userData = response.data.user;
-        const token = response.data.access_token;
-        setUser(userData);
-        setAccessToken(token);
-        return true;
-      }
 
       if (response.status === 422) {
         const serverError = response.data.errors || {};
@@ -78,17 +48,11 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Logout function
-  const logout = async () => {
-    try {
-      await api.post("/logout");
-    } catch (err) {
-      console.error("Logout failed:", err);
-    } finally {
-      setUser(null);
-      setAccessToken(null);
-      window.location.href = "/login";
-    }
+  const logout = (userData) => {
+    localStorage.removeItem("fixoraUser");
+    localStorage.removeItem("fixoraToken");
+
+    setUser(null);
   };
 
   const isAuthenticated = !!user;

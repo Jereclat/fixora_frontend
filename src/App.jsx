@@ -1,23 +1,29 @@
 import React from "react";
-import { Home } from "./pages/Home/Home";
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import { PreRegister } from "./pages/Auth/PreRegister";
 import { Register } from "./pages/Auth/Register";
 import { Login } from "./pages/Auth/Login";
+
 import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
-import { RoleRoute } from "./components/Auth/RoleRoute";
+import { DashboardLayout } from "./components/Layout/DashboardLayout";
+
+import{ RoleRoute } from "./components/Auth/RoleRoute";
 import { ArtisanDashboard } from "./pages/Dashboard/ArtisanDashboard";
 import UserDashboard from "./pages/Dashboard/UserDashboard";
 import ArtisanProfile from "./pages/artisanProfile";
 import BookingDescription from "./pages/booking/BookingDescription";
+import { User } from "./pages/User";
+
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* PUBLIC ROUTES */}
         <Route path="/" element={<PreRegister />} />
-        <Route path="register" element={<Register />} />
-        <Route path="login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
 
         <Route
           path="artisan/dashboard"

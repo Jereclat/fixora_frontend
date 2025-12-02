@@ -1,9 +1,11 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export const Register = () => {
+  const [loading, setLoading] = useState(false)
+
   const selectedRole = useLocation();
   const role_type = selectedRole.state?.role;
   const navigate = useNavigate();
@@ -16,6 +18,8 @@ export const Register = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    setLoading(true)
+
     const mappedRole =
       role_type === "client"
         ? "user"
@@ -51,7 +55,7 @@ export const Register = () => {
         }
       );
 
-      // Basically Laravel + Axios has it's own issues hence we have to spell out the response status 
+      // Basically Laravel + Axios has it's own issues hence we have to spell out the response status
 
       if (response.status === 200) {
         alert("🎉 You've successfully registered!");
@@ -70,6 +74,8 @@ export const Register = () => {
     } catch (error) {
       console.error("Registration error:", error);
       alert("❌ Registration failed due to a server or network error.");
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -296,10 +302,11 @@ export const Register = () => {
 
           <button
             type="submit"
-            className="w-full bg-[#393ffd] text-white py-3 rounded-md font-semibold mt-2 
-            hover:bg-[#2c33fa] transition-colors cursor-pointer"
+            disabled={loading}
+            className={`w-full py-3 rounded-md font-semibold mt-2 transition-colors cursor-pointer
+                        ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-[#393ffd] hover:bg-[#2c33fa] text-white"}`}
           >
-            Create my account
+            {loading ? "Creating account..." : "Create my account"}
           </button>
         </form>
 

@@ -7,16 +7,13 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import PageLoader from "../loader/PageLoader";
 
-export const ProtectedRoute = ({ children }) => {
-  // Implemented the states being isauth and loading
-  const { isAuthenticated, loading } = useAuth();
-  return (
-    <>
-      <PageLoader active={loading} />
+export const ProtectedRoute = ({children}) => {
+    const {isAuthenticated} = useAuth();
 
-      {!loading && !isAuthenticated && <Navigate to="/login" replace />}
+    if(!isAuthenticated) {
+       return <Navigate to="/login" replace />
+    }
 
-      {!loading && isAuthenticated && children}
-    </>
-  );
-};
+
+  return children;
+}
