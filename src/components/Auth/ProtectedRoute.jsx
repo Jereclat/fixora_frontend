@@ -1,20 +1,20 @@
-
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 
-export const ProtectedRoute = ({ children }) => {
-  // Implemented the states being isauth and loading
+export const ProtectedRoute = () => {
   const { isAuthenticated, loading } = useAuth();
 
-  // Wait until we know whether the user is authenticated
+  // Still loading auth state?
   if (loading) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
+  // Not logged in?
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 
-  return children;
+  // Authenticated → render child routes
+  return <Outlet />;
 };
