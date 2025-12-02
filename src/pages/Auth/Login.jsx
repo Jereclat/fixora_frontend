@@ -97,9 +97,9 @@ export const Login = () => {
           </button>
 
           <div className="text-center">
-            <a href="#" className="text-sm text-[#393ffd] hover:underline">
+            <Link to="/forgot-password" className="text-sm text-[#393ffd] hover:underline">
               Forgot your password?
-            </a>
+            </Link>
           </div>
         </form>
 
