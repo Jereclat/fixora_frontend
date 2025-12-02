@@ -8,6 +8,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(false);
 
   // This handles the first loading to which it checks if there is a valid cookie if yes bring a token
   // Else get out.
@@ -17,7 +18,7 @@ export const AuthProvider = ({ children }) => {
         const response = await axios.post(
           "https://backend.northernhavenaxis.com/api/refresh",
           {},
-          { withCredentials: true } 
+          { withCredentials: true }
         );
 
         const newAccessToken = response.data.access_token;
@@ -28,7 +29,15 @@ export const AuthProvider = ({ children }) => {
           setUser(userData);
         }
       } catch (error) {
-        console.log("No active session found.");
+        if (error.response) {
+          console.error(
+            "Session check failed:",
+            error.response.status,
+            error.response.data
+          );
+        } else {
+          console.error("Session check failed:", error.message);
+        }
       } finally {
         setLoading(false);
       }
@@ -38,18 +47,22 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   // Login function
-  const login = async (data) => {
+  const login = async (credentials) => {
     try {
+      setAuthLoading(true);
+
       const response = await axios.post(
         "https://backend.northernhavenaxis.com/api/login",
-        data,
-        { headers: { "Content-Type": "application/json" }, withCredentials: true }
+        credentials,
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
       );
 
       if (response.status === 200) {
         const userData = response.data.user;
         const token = response.data.access_token;
-
         setUser(userData);
         setAccessToken(token);
         return true;
@@ -65,18 +78,21 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error("Login error:", error);
       return false;
+    } finally {
+      setAuthLoading(false);
     }
   };
 
   // Logout function
   const logout = async () => {
     try {
-      await api.post("/logout"); 
+      await api.post("/logout");
     } catch (err) {
       console.error("Logout failed:", err);
     } finally {
       setUser(null);
       setAccessToken(null);
+      window.location.href = "/login";
     }
   };
 
@@ -89,6 +105,7 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         isAuthenticated,
+        authLoading,
         loading,
       }}
     >

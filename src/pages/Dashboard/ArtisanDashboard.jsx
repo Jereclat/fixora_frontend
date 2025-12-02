@@ -1,11 +1,11 @@
-import { Bookings } from "../components/Layout/Booking";
-import { Carousel } from "../components/Layout/Carousel";
-import { Catalog } from "../components/Layout/Catalog";
-import { CongratsCard } from "../components/Layout/CongratsCard";
-import { OrdersCard } from "../components/Layout/OrdersCard";
-import { SessionsCard } from "../components/Layout/SessionsCard";
+import { Bookings } from "../../components/Layout/Booking"
+import { Carousel } from "../../components/Layout/Carousel"
+import { Catalog } from "../../components/Layout/Catalog";
+import { CongratsCard } from "../../components/Layout/CongratsCard";
+import { OrdersCard } from "../../components/Layout/OrdersCard";
+import { SessionsCard } from "../../components/Layout/SessionsCard";
 
-export const Dashboard = () => {
+export const ArtisanDashboard = () => {
   return (
     <div className="w-full py-4 space-y-6 max-w-[1400px] mx-auto">
       {/* TOP 3 CARDS */}

@@ -12,9 +12,11 @@ import {
   User,
   LogOut,
 } from "lucide-react";
+import { useAuth } from "../Auth/AuthContext";
 
 export const Sidebar = () => {
   const [expanded, setExpanded] = useState(false);
+  const { logout } = useAuth();
 
   const menuItems = [
     {
@@ -34,7 +36,6 @@ export const Sidebar = () => {
     { label: "Settings", to: "/settings", icon: <Settings size={20} /> },
     { label: "Support", to: "/support", icon: <HelpCircle size={20} /> },
     { label: "Profile", to: "/user", icon: <User size={20} /> },
-    { label: "Logout", to: "/logout", icon: <LogOut size={20} /> },
   ];
 
   return (
@@ -75,6 +76,15 @@ export const Sidebar = () => {
             {expanded && <span className="text-sm">{item.label}</span>}
           </NavLink>
         ))}
+        <button
+          onClick={logout}
+          className={`flex items-center gap-4 p-3 rounded-md cursor-pointer text-gray-600 hover:bg-gray-100 transition-all duration-200 font-medium
+      ${expanded ? "w-full" : "w-fit"}
+    `}
+        >
+          <LogOut size={20} />
+          {expanded && <span className="text-sm">Logout</span>}
+        </button>
       </nav>
     </div>
   );
