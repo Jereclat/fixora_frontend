@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useAuth } from "../Auth/AuthContext";
 
 import profile from "../../assets/profileAvatar.png";
-import logo from "../../../public/images/logo/logoW.png";
+import logo from "../../../public/images/logo/LogoW.png"
 
 export default function UserHeader() {
   const { user, logout } = useAuth();
@@ -42,7 +42,7 @@ export default function UserHeader() {
             {/* Logo */}
             <div className="flex items-end">
               <img
-                src="/images/logo/logo-transparent.png"
+                src={logo}
                 alt="Artiselo Logo"
                 loading="lazy"
                 height={60}

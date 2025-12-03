@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Mail, Apple, Chrome, Lock } from "lucide-react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -6,9 +6,7 @@ import { useAuth } from "../../components/Auth/AuthContext";
 import axios from "axios";
 
 export const Login = () => {
-  const [loading, setLoading] = useState(false);
-
-  const { login } = useAuth();
+  const { login, isAuthenticated, user, loading, authLoading } = useAuth();
   const navigate = useNavigate();
 
   const {
@@ -17,15 +15,20 @@ export const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    setLoading(true);
-    const success = await login(data);
-    if (success) {
-      navigate("/Dashboard");
-      setLoading(false);
+  // redirect automatically based on the role type if user is logged already no need for form
+  useEffect(() => {
+    if (!loading && isAuthenticated) {
+      if (user?.role_type === "artisan") {
+        navigate("/artisan/dashboard", { replace: true });
+      } else {
+        navigate("/user/dashboard", { replace: true });
+      }
     }
+  }, [isAuthenticated, user, loading, navigate]);
 
-    console.log("error");
+  // making the onsubmit handle just submitting for separation of concerns
+  const onSubmit = async (data) => {
+    await login(data);
   };
 
   return (
@@ -83,20 +86,20 @@ export const Login = () => {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={authLoading}
             className={`w-full py-3 rounded-md font-medium text-white transition-colors  ${
-              loading
+              authLoading
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-[#393ffd] hover:bg-[#2c33fa]  cursor-pointer"
             }`}
           >
-            {loading ? "Logging In... " : "Login"}
+            {authLoading ? "Logging In... " : "Login"}
           </button>
 
           <div className="text-center">
-            <a href="#" className="text-sm text-[#393ffd] hover:underline">
+            <Link to="/forgot-password" className="text-sm text-[#393ffd] hover:underline">
               Forgot your password?
-            </a>
+            </Link>
           </div>
         </form>
 

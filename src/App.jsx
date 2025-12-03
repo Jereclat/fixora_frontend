@@ -8,9 +8,13 @@ import { Login } from "./pages/Auth/Login";
 import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
 import { DashboardLayout } from "./components/Layout/DashboardLayout";
 
-import{ Dashboard } from "./pages/Dashboard";
+import { RoleRoute } from "./components/Auth/RoleRoute";
+import { ArtisanDashboard } from "./pages/Dashboard/ArtisanDashboard";
+import UserDashboard from "./pages/Dashboard/UserDashboard";
+import ArtisanProfile from "./pages/artisanProfile";
+// import BookingDescription from "./pages/booking/BookingDescription";
 import { User } from "./pages/User";
-
+import ForgotPassword from "./pages/Auth/ForgotPassword";
 
 const App = () => {
   return (
@@ -18,20 +22,60 @@ const App = () => {
       <Routes>
         {/* PUBLIC ROUTES */}
         <Route path="/" element={<PreRegister />} />
+
+        {/* Authentication routes */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword/>}/>
 
-        {/* PROTECTED ROUTES */}
-        <Route element={<ProtectedRoute />}>
-        
-          {/* Dashboard layout wrapper */}
-          <Route element={<DashboardLayout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/user" element={<User />} />
-          </Route>
-
+        <Route
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          {/* ARTISAN DASHBOARD */}
+          <Route
+            path="artisan/dashboard"
+            element={
+              <RoleRoute allowedRoles={["artisan"]}>
+                <ArtisanDashboard />
+              </RoleRoute>
+            }
+          />
         </Route>
-
+        {/* user dashboard not wrapped in a dashboard layout */}
+        <Route
+          path="user/dashboard"
+          element={
+            <ProtectedRoute>
+              <RoleRoute allowedRoles={["user"]}>
+                <UserDashboard />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="user/artisan-profile"
+          element={
+            <ProtectedRoute>
+              <RoleRoute allowedRoles={["user"]}>
+                <ArtisanProfile />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        />
+        {/* <Route
+          path="user/booking-description"
+          element={
+            <ProtectedRoute>
+              <RoleRoute allowedRoles={["user"]}>
+                <BookingDescription />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        /> */}
       </Routes>
     </BrowserRouter>
   );

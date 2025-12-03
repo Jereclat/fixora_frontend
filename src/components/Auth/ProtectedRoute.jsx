@@ -1,20 +1,22 @@
+// Here we use in memory when the page loads the state is set so as to give time
+// For the the refresh endpoint to be full loaded in the authContext.
+// If the token from the cookie in the backend is valid after the loading leave the user as isAuthenticated else render the login page.
+
 import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "./AuthContext";
+import PageLoader from "../loader/PageLoader";
 
-export const ProtectedRoute = () => {
+export const ProtectedRoute = ({ children }) => {
+  // Implemented the states being isauth and loading
   const { isAuthenticated, loading } = useAuth();
+  return (
+    <>
+      <PageLoader active={loading} />
 
-  // Still loading auth state?
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+      {!loading && !isAuthenticated && <Navigate to="/login" replace />}
 
-  // Not logged in?
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-
-  // Authenticated → render child routes
-  return <Outlet />;
+      {!loading && isAuthenticated && children}
+    </>
+  );
 };
