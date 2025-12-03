@@ -23,14 +23,14 @@ export default function PageLoader({ active }) {
     >
       <div className="relative flex items-center justify-center">
         {/* Rotating Ring */}
-        <div className="absolute w-32 h-32 border-4 border-gray-300 
+        <div className="absolute w-20 h-20 border-4 border-gray-300 
                         border-t-black rounded-full animate-spin"></div>
 
         {/* Center Image */}
         <img
           src="/images/logo/logo-transparent.png"
           alt="Artiselo Loading"
-          className="w-30 h-30 object-contain"
+          className="w-18 h-18 object-contain"
           loading="lazy"
         />
       </div>

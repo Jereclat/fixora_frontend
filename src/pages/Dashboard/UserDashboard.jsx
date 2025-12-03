@@ -1,15 +1,15 @@
 import { useRef } from "react";
-import UserHeader from "../../components/ui/userHeader";
-import UserHero from "../../components/ui/userHero";
-import UserFilter from "../../components/ui/userfilter";
-import ArtisanCards from "../../components/ui/artisanCard";
-import BottomNav from "../../components/ui/userBottomNav";
-import UserFooter from "../../components/ui/userFooter";
+import UserHeader from "../../components/UserUI/userHeader";
+import { UserHero } from "../../components/UserUI/userHero";
+import UserFilter from "../../components/UserUI/userfilter";
+import ArtisanCards from "../../components/UserUI/artisanCard";
+import BottomNav from "../../components/UserUI/userBottomNav";
+import UserFooter from "../../components/UserUI/userFooter";
 
 export default function UserDashboard() {
   const cardsRef = useRef(null);
   return (
-    <div className="min-h-screen w-full bg-[#f8f5f2] px-4">
+    <div className="min-h-screen w-full">
       <UserHeader />
       <div className="sm:px-8 md:px-16 lg:px-24 xl:px-24 pb-28 lg:pb-0">
         <UserHero scrollTargetRef={cardsRef} />

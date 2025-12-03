@@ -1,5 +1,5 @@
-import { Bookings } from "../../components/Layout/Booking"
-import { Carousel } from "../../components/Layout/Carousel"
+import { Bookings } from "../../components/Layout/Booking";
+import { Carousel } from "../../components/Layout/Carousel";
 import { Catalog } from "../../components/Layout/Catalog";
 import { CongratsCard } from "../../components/Layout/CongratsCard";
 import { OrdersCard } from "../../components/Layout/OrdersCard";

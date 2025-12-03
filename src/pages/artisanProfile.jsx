@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import UserHeader from "../components/ui/userHeader";
-import UserFooter from "../components/ui/userFooter";
-import BottomNav from "../components/ui/userBottomNav";
 import { X } from "lucide-react";
+import UserHeader from "../components/UserUI/userHeader";
+import UserFooter from "../components/UserUI/userFooter";
+import BottomNav from "../components/UserUI/userBottomNav";
 
 export default function ArtisanProfile() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -19,7 +19,7 @@ const handleClick = () => {
   ];
 
   return (
-    <div className="min-h-screen w-full bg-[#f8f5f2] px-4">
+    <div className="min-h-screen w-full px-4">
       <UserHeader />
 
       {/* Main content wrapper */}

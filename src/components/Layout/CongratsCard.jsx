@@ -10,7 +10,7 @@ export const CongratsCard = () => {
       <div className="space-y-3 w-full">
         <h1 className="text-2xl font-semibold text-gray-700">
           Congratulations{" "}
-          <span className="text-[#393ffd] font-bold">John!</span> 🎉
+          <span className="text-[--brand] font-bold">John!</span> 🎉
         </h1>
 
         <p className="text-gray-500 text-sm leading">
