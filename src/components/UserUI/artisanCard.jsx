@@ -65,7 +65,7 @@ const ArtisanCards = () => {
 
   return (
     <div className="py-2">
-      <div className="max-w-7xl mx-auto">
+      <div className="w-full     mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {artisans.map((artisan) => (
             <div
@@ -138,6 +138,7 @@ const ArtisanCards = () => {
             </div>
           ))}
         </div>
+        <button className="bg-brand text-white item-center rounded-xl px-4 py-2 flex mx-auto mt-6 hover:cursor-pointer shadow-md">View More</button>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { Upload, Users } from "lucide-react";
 import catalog from "../../assets/catalog.png";
-import catalogMan from "../../assets/catalogman.png";
+import catalogMan from "../../assets/CatalogMan.png";
 
 export const Catalog = () => {
   const [formData, setFormData] = useState({
