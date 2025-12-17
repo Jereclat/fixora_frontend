@@ -39,7 +39,7 @@ export const UserHero = () => {
           </h1>
 
           <button
-            className="bg-brand shadow-lg shadow-blue-200  text-white text-sm sm:text-base md:text-lg px-4 sm:px-5 md:px-6 py-2 sm:py-3 rounded-lg 
+            className="bg-brand shadow-lg shadow-blue-200 mb-2 lg-mb-0 text-white text-sm sm:text-base md:text-lg px-4 sm:px-5 md:px-6 py-2 sm:py-3 rounded-lg 
           font-semibold transition-all duration-300 hover:cursor-pointer md:w-fit mx-auto md:mx-0"
           >
             Explore Artisans

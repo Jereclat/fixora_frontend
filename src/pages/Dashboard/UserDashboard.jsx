@@ -11,7 +11,7 @@ export default function UserDashboard() {
   return (
     <div className="min-h-screen w-full">
       <UserHeader />
-      <div className="sm:px-8 md:px-16 lg:px-24 xl:px-24 pb-28 lg:pb-0">
+      <div className="px-8 md:px-16 lg:px-24 xl:px-24 pb-28 lg:pb-0">
         <UserHero scrollTargetRef={cardsRef} />
         <UserFilter />
         <div ref={cardsRef}>

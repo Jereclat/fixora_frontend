@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import logo from "../../assets/logo.jpg";
 
 export default function PageLoader({ active }) {
   const [visible, setVisible] = useState(active);
@@ -28,7 +29,7 @@ export default function PageLoader({ active }) {
 
         {/* Center Image */}
         <img
-          src="/images/logo/logo-transparent.png"
+          src={logo}
           alt="Artiselo Loading"
           className="w-18 h-18 object-contain"
           loading="lazy"

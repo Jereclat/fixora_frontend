@@ -12,7 +12,7 @@ import { RoleRoute } from "./components/Auth/RoleRoute";
 import { ArtisanDashboard } from "./pages/Dashboard/ArtisanDashboard";
 import UserDashboard from "./pages/Dashboard/UserDashboard";
 import ArtisanProfile from "./pages/artisanProfile";
-// import BookingDescription from "./pages/booking/BookingDescription";
+import BookingDescription from "./pages/booking/BookingDescription";
 import { User } from "./pages/User";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 
@@ -66,7 +66,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        {/* <Route
+        <Route
           path="user/booking-description"
           element={
             <ProtectedRoute>
@@ -75,7 +75,7 @@ const App = () => {
               </RoleRoute>
             </ProtectedRoute>
           }
-        /> */}
+        />
       </Routes>
     </BrowserRouter>
   );

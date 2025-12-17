@@ -150,7 +150,7 @@ const handleClick = () => {
                       ].map((skill) => (
                         <span
                           key={skill}
-                          className="rounded-full bg-[#e2dcd7] text-[#6d4c41] px-3 py-1 text-sm font-medium"
+                          className="rounded-full bg-blue-100 text-brand px-3 py-1 text-sm font-medium"
                         >
                           {skill}
                         </span>
@@ -159,7 +159,7 @@ const handleClick = () => {
 
                     <button 
                     onClick={handleClick}
-                    className="w-full h-12 rounded-lg bg-[#6d4c41] text-white font-bold hover:cursor-pointer hover:bg-[#856051] transition-all duration-300 ease-in-out">
+                    className="w-full h-12 rounded-lg bg-brand text-white font-bold hover:cursor-pointer hover:bg-blue-400 transition-all duration-300 ease-in-out">
                       Book Now
                     </button>
                   </div>
@@ -173,7 +173,7 @@ const handleClick = () => {
 
                   <div className="bg-white shadow-sm p-6 rounded-xl flex flex-col md:flex-row gap-6">
                     <div className="flex flex-col items-center">
-                      <p className="text-5xl font-bold text-[#6d4c41]">4.8</p>
+                      <p className="text-5xl font-bold text-gray-500">4.8</p>
                       <div className="flex">
                         {["star", "star", "star", "star", "star_half"].map(
                           (icon, i) => (

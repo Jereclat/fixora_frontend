@@ -4,7 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import { useAuth } from "../Auth/AuthContext";
 
 import profile from "../../assets/profileAvatar.png";
-import logo from "../../../public/images/logo/LogoW.png"
+import Logo from "../../assets/logo-transparent.png";
+import LogoEnd from "../../assets/LogoW.png";
 
 export default function UserHeader() {
   const { user, logout } = useAuth();
@@ -42,14 +43,14 @@ export default function UserHeader() {
             {/* Logo */}
             <div className="flex items-end">
               <img
-                src={logo}
+                src={Logo}
                 alt="Artiselo Logo"
                 loading="lazy"
                 height={60}
                 width={60}
               />
 
-              <img src={logo} alt="" width={100} className="-ml-9 -z-1 mb-2 hidden md:block" />
+              <img src={LogoEnd} alt="" width={100} className="-ml-9 -z-1 mb-2 hidden md:block" />
             </div>
 
             {/* Links */}
@@ -67,7 +68,7 @@ export default function UserHeader() {
                 Payments
               </Link>
               <Link className="hover-text-brand transition-all duration-300 ease-in-out">
-                Support
+                Market
               </Link>
             </div>
           </div>
@@ -83,45 +84,13 @@ export default function UserHeader() {
               />
             </div>
 
-            {/* Logout button (Desktop only) */}
-            {/* <div>
-            <button
-              onClick={handleLogout}
-              disabled={isLoading}
-              className={`text-white bg-brand rounded-xl py-2 px-6 font-semibold capitalize hidden lg:flex 
-              transition-all duration-300 ease-in-out ${
-                isLoading
-                  ? "opacity-70 cursor-not-allowed"
-                  : "hover:bg-[#856051] cursor-pointer"
-              }`}
-            >
-              {isLoading ? (
-                <span className="flex items-center gap-2">
-                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                  Loading
-                </span>
-              ) : (
-                "Logout"
-              )}
-            </button>
-          </div> */}
 
             {/* User avatar */}
             <div className="relative">
               {/* Desktop avatar: direct redirect */}
-              <Link to="/profile" className="hidden lg:flex">
-                <img
-                  src={profile}
-                  alt="Artiselo user"
-                  loading="lazy"
-                  height={40}
-                  width={40}
-                  className="rounded-full cursor-pointer"
-                />
-              </Link>
 
               {/* Mobile avatar: dropdown */}
-              <div className="relative flex lg:hidden" ref={dropdownRef}>
+              <div className="relative flex" ref={dropdownRef}>
                 <img
                   src={profile}
                   alt="Profile"
@@ -134,7 +103,7 @@ export default function UserHeader() {
                     {/* User info */}
                     <div className="px-4 py-3 border-b border-gray-200 flex items-center gap-2">
                       <img
-                        src={user?.avatar || "/images/user.png"}
+                        src={user?.avatar || profile}
                         alt="Profile"
                         className="w-8 h-8 rounded-full"
                       />
