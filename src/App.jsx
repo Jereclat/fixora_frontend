@@ -15,6 +15,9 @@ import ArtisanProfile from "./pages/artisanProfile";
 import BookingDescription from "./pages/booking/BookingDescription";
 import { User } from "./pages/User";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
+import { ArtisanWallet } from "./pages/ArtisanWallet";
+import ArtisanCatalogue from "./pages/ArtisanCatalogue";
+import Job from "./pages/Job";
 
 const App = () => {
   return (
@@ -26,7 +29,7 @@ const App = () => {
         {/* Authentication routes */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/forgot-password" element={<ForgotPassword/>}/>
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
         <Route
           element={
@@ -41,6 +44,36 @@ const App = () => {
             element={
               <RoleRoute allowedRoles={["artisan"]}>
                 <ArtisanDashboard />
+              </RoleRoute>
+            }
+          />
+
+          {/* ARTISAN WALLET */}
+          <Route
+            path="artisan/wallet"
+            element={
+              <RoleRoute allowedRoles={["artisan"]}>
+                <ArtisanWallet />
+              </RoleRoute>
+            }
+          />
+
+          {/* ARTISAN CATALOGUE */}
+          <Route
+            path="artisan/catalogue"
+            element={
+              <RoleRoute allowedRoles={["artisan"]}>
+                <ArtisanCatalogue />
+              </RoleRoute>
+            }
+          />
+
+          {/* ARTISAN JOBS */}
+          <Route
+            path="artisan/jobrequest"
+            element={
+              <RoleRoute allowedRoles={["artisan"]}>
+                <Job /> 
               </RoleRoute>
             }
           />
