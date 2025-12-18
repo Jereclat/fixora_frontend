@@ -19,22 +19,22 @@ export const Sidebar = () => {
   const menuItems = [
     {
       label: "Dashboard",
-      to: "/dashboard",
+      to: "artisan/dashboard",
       icon: <LayoutDashboard size={20} />,
     },
-    { label: "Wallet", to: "/wallet", icon: <Wallet size={20} /> },
-    { label: "Catalogue", to: "/catalogue", icon: <BookOpen size={20} /> },
-    { label: "Messages", to: "/messages", icon: <MessageSquare size={20} /> },
-    { label: "Job Request", to: "/jobRequest", icon: <Briefcase size={20} /> },
+    { label: "Wallet", to: "artisan/wallet", icon: <Wallet size={20} /> },
+    { label: "Catalogue", to: "artisan/catalogue", icon: <BookOpen size={20} /> },
+    { label: "Messages", to: "artisan/messages", icon: <MessageSquare size={20} /> },
+    { label: "Job Request", to: "artisan/jobRequest", icon: <Briefcase size={20} /> },
     {
       label: "Job Histories",
       to: "/jobHistories",
       icon: <History size={20} />,
     },
-    { label: "Settings", to: "/settings", icon: <Settings size={20} /> },
-    { label: "Support", to: "/support", icon: <HelpCircle size={20} /> },
-    { label: "Profile", to: "/user", icon: <User size={20} /> },
-    { label: "Logout", to: "/logout", icon: <LogOut size={20} /> },
+    { label: "Settings", to: "artisan/settings", icon: <Settings size={20} /> },
+    { label: "Support", to: "artisan/support", icon: <HelpCircle size={20} /> },
+    { label: "Profile", to: "artisan/user", icon: <User size={20} /> },
+    { label: "Logout", to: "artisan/logout", icon: <LogOut size={20} /> },
   ];
 
   return (

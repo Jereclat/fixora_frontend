@@ -15,8 +15,8 @@ export const PreRegister = () => {
     <>
       <Header />
 
-      <section className="w-full h-dvh">
-        <div className="lg:w-[70%] w-[90%] h-full flex flex-col m-auto align-middle">
+      <section className="w-full h-screen flex items-center justify-center">
+        <div className="lg:w-[70%] w-[90%] flex flex-col m-auto align-middle">
           <h2 className="text-center text-4xl mb-10">
             Join as a client or Handiman
           </h2>
