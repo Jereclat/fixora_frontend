@@ -7,7 +7,7 @@ import axios from "axios";
 
 import analytics from "../../../public/images/Authentication/analytics.png";
 import ball from "../../../public/images/Authentication/ball.png";
-import logo from "../../../public/images/logo/logoW.png"
+// import logo from "../../../public/images/logo/logoW.png"
 
 export const Login = () => {
   const { login, isAuthenticated, user, loading, authLoading } = useAuth();
