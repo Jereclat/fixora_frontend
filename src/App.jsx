@@ -18,7 +18,7 @@ import ForgotPassword from "./pages/Auth/ForgotPassword";
 import { ArtisanWallet } from "./pages/ArtisanWallet";
 import ArtisanCatalogue from "./pages/ArtisanCatalogue";
 import Job from "./pages/Job";
-
+import UserPriority from "./pages/booking/UserPriority"
 const App = () => {
   return (
     <BrowserRouter>
@@ -105,6 +105,16 @@ const App = () => {
             <ProtectedRoute>
               <RoleRoute allowedRoles={["user"]}>
                 <BookingDescription />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="user/priority"
+          element={
+            <ProtectedRoute>
+              <RoleRoute allowedRoles={["user"]}>
+                <UserPriority />
               </RoleRoute>
             </ProtectedRoute>
           }
