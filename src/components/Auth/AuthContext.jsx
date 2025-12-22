@@ -9,14 +9,14 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [authLoading, setAuthLoading] = useState(false);
-
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
   // This handles the first loading to which it checks if there is a valid cookie if yes bring a token
   // Else get out.
   useEffect(() => {
     const checkSession = async () => {
       try {
         const response = await axios.post(
-          "https://backend.northernhavenaxis.com/api/refresh",
+          `${baseUrl}refresh`,
           {},
           { withCredentials: true }
         );
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
       setAuthLoading(true);
 
       const response = await axios.post(
-        "https://backend.northernhavenaxis.com/api/login",
+        `${baseUrl}login`,
         credentials,
         {
           headers: { "Content-Type": "application/json" },
