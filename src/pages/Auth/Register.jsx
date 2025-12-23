@@ -4,12 +4,12 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export const Register = () => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const selectedRole = useLocation();
   const role_type = selectedRole.state?.role;
   const navigate = useNavigate();
-
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
   const {
     register,
     handleSubmit,
@@ -18,7 +18,7 @@ export const Register = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    setLoading(true)
+    setLoading(true);
 
     const mappedRole =
       role_type === "client"
@@ -43,7 +43,7 @@ export const Register = () => {
 
     try {
       const response = await axios.post(
-        "https://backend.northernhavenaxis.com/api/signup",
+        `${baseUrl}signup`,
         userProfile,
 
         {
@@ -75,7 +75,7 @@ export const Register = () => {
       console.error("Registration error:", error);
       alert("❌ Registration failed due to a server or network error.");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   };
 
@@ -304,7 +304,11 @@ export const Register = () => {
             type="submit"
             disabled={loading}
             className={`w-full py-3 rounded-md font-semibold mt-2 transition-colors cursor-pointer
-                        ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-[#393ffd] hover:bg-[#2c33fa] text-white"}`}
+                        ${
+                          loading
+                            ? "bg-gray-400 cursor-not-allowed"
+                            : "bg-[#393ffd] hover:bg-[#2c33fa] text-white"
+                        }`}
           >
             {loading ? "Creating account..." : "Create my account"}
           </button>
