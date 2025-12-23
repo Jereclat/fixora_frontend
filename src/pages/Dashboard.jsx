@@ -173,9 +173,9 @@ export const Dashboard = () => {
       </div>
 
       {/* First Dashboard Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-stretch">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
         {/* Sales Overview */}
-        <div className="rounded-2xl shadow-sm md:col-span-2 bg-white">
+        <div className="rounded-2xl shadow-sm bg-white lg:col-span-2 col-span-1">
           <div className="p-6">
             <div className="flex items-center justify-between">
               <div>
@@ -222,7 +222,7 @@ export const Dashboard = () => {
         </div>
 
         {/* Ratings */}
-        <div className="rounded-2xl shadow-sm md:col-span-1 bg-white">
+        <div className="rounded-2xl shadow-sm bg-white col-span-1">
           <div className="p-6 flex items-center justify-between">
             <div>
               <h2 className="text-lg font-semibold">Client Rating</h2>
@@ -251,7 +251,7 @@ export const Dashboard = () => {
         </div>
 
         {/* Sessions */}
-        <div className="rounded-2xl shadow-sm md:col-span-1 bg-white relative">
+        <div className="rounded-2xl shadow-sm bg-white col-span-1">
           <div className="p-6 flex items-center justify-between">
             <div>
               <h2 className="text-lg font-semibold">Total Clients</h2>
@@ -266,7 +266,7 @@ export const Dashboard = () => {
       </div>
 
       {/* Second Dashboard Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-6 gap-6 mt-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 mt-10">
         {/* WEEKLY SALES CAROUSEL */}
         <div className="md:col-span-3 rounded-2xl bg-[#5669FF] p-4 text-white shadow-lg relative overflow-hidden h-[250px]">
           {/* Title + dots */}
