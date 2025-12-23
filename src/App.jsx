@@ -32,19 +32,6 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
 
-        {/* ARTISAN PROFILE */}
-
-          <Route
-            path="artisan/profile"
-            element={
-              <ProtectedRoute>
-              <RoleRoute allowedRoles={["artisan"]}>
-                <Profile />
-              </RoleRoute>
-              </ProtectedRoute>
-            }
-          />
-
         <Route
           element={
             <ProtectedRoute>
@@ -89,6 +76,16 @@ const App = () => {
             element={
               <RoleRoute allowedRoles={["artisan"]}>
                 <Job /> 
+              </RoleRoute>
+            }
+          />
+
+          {/* ARTISAN PROFILE */}
+           <Route
+            path="artisan/profile"
+            element={
+              <RoleRoute allowedRoles={["artisan"]}>
+                <Profile />
               </RoleRoute>
             }
           />
