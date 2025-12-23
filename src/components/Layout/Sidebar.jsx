@@ -35,7 +35,7 @@ export const Sidebar = () => {
     },
     { label: "Settings", to: "artisan/settings", icon: <Settings size={20} /> },
     { label: "Support", to: "artisan/support", icon: <HelpCircle size={20} /> },
-    { label: "Profile", to: "artisan/user", icon: <User size={20} /> },
+    { label: "Profile", to: "artisan/profile", icon: <User size={20} /> },
     { label: "Logout", to: "artisan/logout", icon: <LogOut size={20} /> },
   ];
 

@@ -22,7 +22,7 @@ const Sidebar = ({ children }) => {
       path: "/job-histories",
     },
     { title: "Settings", icon: "/images/settings.png", path: "/settings" },
-    { title: "Profile", icon: "/images/profile.png", path: "/profile" },
+    { title: "Profile", icon: "/images/profile.png", path: "/artisan/profile" },
     { title: "Log Out", icon: "/images/logout.png", path: "/logout" },
   ];
 
