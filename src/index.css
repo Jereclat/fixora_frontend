@@ -1,1 +1,43 @@
+/* Import Google Fonts (correct wght syntax) */
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+/* Importing Tailwind CSS */
 @import "tailwindcss";
+
+:root {
+  --brand: #393ffd;
+}
+
+
+/* Custom utilities for brand color */
+@layer utilities {
+  .text-brand {
+    color: var(--brand);
+  }
+
+  .bg-brand {
+    background-color: var(--brand);
+  }
+
+  .hover-text-brand:hover {
+    color: var(--brand);
+  }
+}
+
+
+/* Ensure Outfit font applies globally via layer base (keeps order safe) */
+
+html,
+body {
+  font-family: "Outfit", sans-serif !important;
+}
+
+
+/* Hide scrollbar while keeping scrolling */
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hidden {
+  overflow-y: scroll;
+}

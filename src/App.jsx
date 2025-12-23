@@ -1,92 +1,125 @@
 import React from "react";
-import { Home } from "./pages/Home/Home";
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import { PreRegister } from "./pages/Auth/PreRegister";
 import { Register } from "./pages/Auth/Register";
 import { Login } from "./pages/Auth/Login";
-import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
-import { Dashboard } from "./pages/Dashboard";
-import Sidebar from "./components/Sidebar";
 
+import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
+import { DashboardLayout } from "./components/Layout/DashboardLayout";
+
+import { RoleRoute } from "./components/Auth/RoleRoute";
+import { ArtisanDashboard } from "./pages/Dashboard/ArtisanDashboard";
+import UserDashboard from "./pages/Dashboard/UserDashboard";
+import ArtisanProfile from "./pages/artisanProfile";
+import BookingDescription from "./pages/booking/BookingDescription";
+import { User } from "./pages/User";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import { ArtisanWallet } from "./pages/ArtisanWallet";
+import ArtisanCatalogue from "./pages/ArtisanCatalogue";
+import Job from "./pages/Job";
+import UserPriority from "./pages/booking/UserPriority"
 const App = () => {
   return (
     <BrowserRouter>
-
       <Routes>
+        {/* PUBLIC ROUTES */}
         <Route path="/" element={<PreRegister />} />
-        <Route path="register" element={<Register />} />
-        <Route path="login" element={<Login />} />
 
-        <Route path="/dashboard"
-        element= {
-          // <ProtectedRoute>
-            <Sidebar>
-              <Dashboard />
-            </Sidebar>
-          // </ProtectedRoute>
-        } />
+        {/* Authentication routes */}
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
-        <Route path="/earnings"
-        element= {
-          <Sidebar>
-            <div className="min-h-screen bg-white p-6">
-              <h1 className="text-2xl font-bold">Earnings Page</h1>
-              <p className="mt-4">This is the Earnings page.</p>
-            </div>
-          </Sidebar>
-        } />
+        <Route
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          {/* ARTISAN DASHBOARD */}
+          <Route
+            path="artisan/dashboard"
+            element={
+              <RoleRoute allowedRoles={["artisan"]}>
+                <ArtisanDashboard />
+              </RoleRoute>
+            }
+          />
 
-        <Route path="/job-request"
-        element= {
-          <Sidebar>
-            <div className="min-h-screen bg-white p-6">
-              <h1 className="text-2xl font-bold">Job Request Page</h1>
-              <p className="mt-4">This is the Job Request page.</p>
-            </div>
-          </Sidebar>
-        } />
+          {/* ARTISAN WALLET */}
+          <Route
+            path="artisan/wallet"
+            element={
+              <RoleRoute allowedRoles={["artisan"]}>
+                <ArtisanWallet />
+              </RoleRoute>
+            }
+          />
 
-        <Route path="/job-histories"
-        element= {
-          <Sidebar>
-            <div className="min-h-screen bg-white p-6">
-              <h1 className="text-2xl font-bold">Job Histories Page</h1>
-              <p className="mt-4">This is the Job Histories page.</p>
-            </div>
-          </Sidebar>
-        } />
+          {/* ARTISAN CATALOGUE */}
+          <Route
+            path="artisan/catalogue"
+            element={
+              <RoleRoute allowedRoles={["artisan"]}>
+                <ArtisanCatalogue />
+              </RoleRoute>
+            }
+          />
 
-        <Route path="/settings"
-        element= {
-          <Sidebar>
-            <div className="min-h-screen bg-white p-6">
-              <h1 className="text-2xl font-bold">Settings Page</h1>
-              <p className="mt-4">This is the Settings page.</p>
-            </div>
-          </Sidebar>
-        } />
-
-        <Route path="/profile"
-        element= {
-          <Sidebar>
-            <div className="min-h-screen bg-white p-6">
-              <h1 className="text-2xl font-bold">Profile Page</h1>
-              <p className="mt-4">This is the Profile page.</p>
-            </div>
-          </Sidebar>
-        } />
-
-        <Route path="/logout"
-        element= {
-          <Sidebar>
-            <div className="min-h-screen bg-white p-6">
-              <h1 className="text-2xl font-bold">Logout Page</h1>
-              <p className="mt-4">You have been logged out.</p>
-            </div>
-          </Sidebar>
-        } />
+          {/* ARTISAN JOBS */}
+          <Route
+            path="artisan/jobrequest"
+            element={
+              <RoleRoute allowedRoles={["artisan"]}>
+                <Job /> 
+              </RoleRoute>
+            }
+          />
+        </Route>
+        {/* user dashboard not wrapped in a dashboard layout */}
+        <Route
+          path="user/dashboard"
+          element={
+            <ProtectedRoute>
+              <RoleRoute allowedRoles={["user"]}>
+                <UserDashboard />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="user/artisan-profile"
+          element={
+            <ProtectedRoute>
+              <RoleRoute allowedRoles={["user"]}>
+                <ArtisanProfile />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="user/booking-description"
+          element={
+            <ProtectedRoute>
+              <RoleRoute allowedRoles={["user"]}>
+                <BookingDescription />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="user/priority"
+          element={
+            <ProtectedRoute>
+              <RoleRoute allowedRoles={["user"]}>
+                <UserPriority />
+              </RoleRoute>
+            </ProtectedRoute>
+          }
+        />
       </Routes>
-
     </BrowserRouter>
   );
 };
