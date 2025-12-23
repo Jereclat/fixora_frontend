@@ -13,7 +13,7 @@ export const PreRegister = () => {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
 
       <section className="w-full h-screen flex items-center justify-center">
         <div className="lg:w-[70%] w-[90%] flex flex-col m-auto align-middle">
