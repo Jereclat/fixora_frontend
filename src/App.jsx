@@ -18,7 +18,8 @@ import ForgotPassword from "./pages/Auth/ForgotPassword";
 import { ArtisanWallet } from "./pages/ArtisanWallet";
 import ArtisanCatalogue from "./pages/ArtisanCatalogue";
 import Job from "./pages/Job";
-import UserPriority from "./pages/booking/UserPriority"
+import UserPriority from "./pages/booking/UserPriority";
+import Profile from "./pages/Profile";
 const App = () => {
   return (
     <BrowserRouter>
@@ -30,6 +31,19 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
+
+        {/* ARTISAN PROFILE */}
+
+          <Route
+            path="artisan/profile"
+            element={
+              <ProtectedRoute>
+              <RoleRoute allowedRoles={["artisan"]}>
+                <Profile />
+              </RoleRoute>
+              </ProtectedRoute>
+            }
+          />
 
         <Route
           element={
@@ -47,6 +61,7 @@ const App = () => {
               </RoleRoute>
             }
           />
+
 
           {/* ARTISAN WALLET */}
           <Route
