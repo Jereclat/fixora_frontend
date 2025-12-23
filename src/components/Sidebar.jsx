@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ChevronsLeft, ChevronsRight } from "lucide-react";
 
 const Sidebar = ({ children }) => {
   const [open, setOpen] = useState(true);
@@ -10,8 +11,16 @@ const Sidebar = ({ children }) => {
   const menuItems = [
     { title: "Dashboard", icon: "/images/dashboard.png", path: "/dashboard" },
     { title: "Earnings", icon: "/images/earning.png", path: "/earnings" },
-    { title: "Job Request", icon: "/images/job-request.png", path: "/job-request" },
-    { title: "Job Histories", icon: "/images/job-history.png", path: "/job-histories" },
+    {
+      title: "Job Request",
+      icon: "/images/job-request.png",
+      path: "/job-request",
+    },
+    {
+      title: "Job Histories",
+      icon: "/images/job-history.png",
+      path: "/job-histories",
+    },
     { title: "Settings", icon: "/images/settings.png", path: "/settings" },
     { title: "Profile", icon: "/images/profile.png", path: "/profile" },
     { title: "Log Out", icon: "/images/logout.png", path: "/logout" },
@@ -21,7 +30,7 @@ const Sidebar = ({ children }) => {
     <div className="flex min-h-screen bg-white">
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full ${
+        className={`fixed top-0 left-0 min-h-screen h-screen ${
           open || isHovered ? "w-64" : "w-20"
         } bg-white text-gray-800 p-4 flex flex-col transition-all duration-300 border-r border-gray-200 z-40`}
         onMouseEnter={() => setIsHovered(true)}
@@ -35,7 +44,9 @@ const Sidebar = ({ children }) => {
             className="h-10 w-10"
           />
           {(open || isHovered) && (
-            <span className="ml-3 text-xl font-bold text-gray-800">Artiselo</span>
+            <span className="ml-3 text-xl font-bold text-gray-800">
+              Artiselo
+            </span>
           )}
         </div>
 
@@ -47,23 +58,23 @@ const Sidebar = ({ children }) => {
               open ? "" : "right-2"
             }`}
           >
-            {open ? "<<" : ">>"}
+            {open ? (
+              <ChevronsLeft className="w-5 h-5" />
+            ) : (
+              <ChevronsRight className="w-5 h-5" />
+            )}
           </button>
         )}
 
         {/* Menu Items */}
-        <nav className="flex-1 space-y-6">
+        <nav className="flex-1 space-y-6 overflow-y-auto">
           {menuItems.map((item, index) => (
             <button
               key={index}
               onClick={() => navigate(item.path)}
               className="flex items-center w-full p-3 rounded hover:bg-gray-100 transition group"
             >
-              <img
-                src={item.icon}
-                alt={item.title}
-                className="h-8 w-8"
-              />
+              <img src={item.icon} alt={item.title} className="h-8 w-8" />
 
               {(open || isHovered) && (
                 <span className="ml-3 text-gray-700 group-hover:text-gray-900">
@@ -76,9 +87,11 @@ const Sidebar = ({ children }) => {
       </div>
 
       {/* Content Area */}
-      <div className={`flex-1 p-0 transition-all duration-300 ${
-        open || isHovered ? "ml-64" : "ml-20"
-      }`}>
+      <div
+        className={`flex-1 p-0 transition-all duration-300 ${
+          open || isHovered ? "ml-64" : "ml-20"
+        }`}
+      >
         {children}
       </div>
     </div>
