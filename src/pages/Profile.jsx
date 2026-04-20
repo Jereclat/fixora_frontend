@@ -25,11 +25,13 @@ import {
   CreditCard,
 } from "lucide-react";
 import Project from "./Project";
+import profileImg from "../assets/profile.png";
+import bannerImg from "../assets/plumber.jpg";
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState("profile");
-  const [profileImage, setProfileImage] = useState("/images/profile.png");
-  const [bannerImage, setBannerImage] = useState("/images/plumber.jpg");
+  const [profileImage, setProfileImage] = useState(profileImg);
+  const [bannerImage, setBannerImage] = useState(bannerImg);
 
   const fileInputRef = useRef(null);
   const bannerInputRef = useRef(null);

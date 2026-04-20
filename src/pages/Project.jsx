@@ -1,17 +1,19 @@
 import React, { useState } from "react";
+import profileImg from "../assets/profile.png";
+import plumberImg from "../assets/plumber.jpg";
 
 const works = [
   {
     id: 1,
     type: "image",
-    file: "/images/plumber.jpg",
+    file: plumberImg,
     title: "Pipe Installation",
     description: "Completed PVC pipe installation for a residential building.",
   },
   {
     id: 2,
     type: "image",
-    file: "/images/plumber.jpg",
+    file: plumberImg,
     title: "Water Pump Repair",
     description: "Fixed and serviced a faulty pressure pump for a client.",
   },
@@ -25,7 +27,7 @@ const works = [
   {
     id: 4,
     type: "image",
-    file: "/images/plumber.jpg",
+    file: plumberImg,
     title: "Pipe Installation",
     description: "Completed PVC pipe installation for a residential building.",
   },
@@ -39,7 +41,7 @@ const works = [
   {
     id: 6,
     type: "image",
-    file: "/images/plumber.jpg",
+    file: plumberImg,
     title: "Water Pump Repair",
     description: "Fixed and serviced a faulty pressure pump for a client.",
   },

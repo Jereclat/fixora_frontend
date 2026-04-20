@@ -61,7 +61,9 @@ export default function UserHeader() {
               >
                 Home
               </Link>
-              <Link className="hover-text-brand transition-all duration-300 ease-in-out">
+              <Link
+              to={"/user/progress"}
+              className="hover-text-brand transition-all duration-300 ease-in-out">
                 Bookings
               </Link>
               <Link className="hover-text-brand transition-all duration-300 ease-in-out">

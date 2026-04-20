@@ -1,23 +1,18 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "./AuthContext";
 import PageLoader from "../loader/PageLoader";
 
-// Handles Role-based access control for the application
-export const RoleRoute = ({ children, allowedRoles }) => {
+export const RoleRoute = ({ allowedRoles }) => {
   const { user, loading } = useAuth();
   const roles = Array.isArray(allowedRoles) ? allowedRoles : [allowedRoles];
 
-  return (
-    <>
-      {/* Fade-Out Loader */}
-      <PageLoader active={loading} />
+  if (loading) {
+    return <PageLoader active />;
+  }
 
-      {/* When loading finishes, check roles */}
-      {!loading && (!user || !roles.includes(user.role_type)) && (
-        <Navigate to="/login" replace />
-      )}
+  if (!user || !roles.includes(user.role_type)) {
+    return <Navigate to="/login" replace />;
+  }
 
-      {!loading && user && roles.includes(user.role_type) && children}
-    </>
-  );
+  return <Outlet />;
 };
